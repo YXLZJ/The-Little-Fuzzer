@@ -1,6 +1,9 @@
 ### The Little Fuzzer
-depth control 😀
-shortest path searching 😄
+
+|Functionality|Finish|
+|:------------:|:-----:|
+|depth control |😄|
+|shortest path searching|😄|
 
 ```
 mkdir build
