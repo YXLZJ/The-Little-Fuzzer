@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(The little Fuzzer)
+project(The_Little_Fuzzer)
 
 set(CMAKE_CXX_STANDARD 17)
 

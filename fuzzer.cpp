@@ -77,7 +77,7 @@ public:
         this->getshortcut();
     }
 
-    void JIT(string file)
+    void JIT(string file, bool show)
     {
         string code = R"(#include<stdio.h>
 #include<string.h>
@@ -182,8 +182,11 @@ unsigned seed;
         main_func += "            clock_t end = clock();\n";
         main_func += "            double duration = (double)(end-start)/CLOCKS_PER_SEC;\n";
         main_func += "            printf(\"Throughput Rate: \%.4f MB/s\\n\",(double)sum/duration/1024/1024);\n";
-        main_func += "            printbuff();\n";
-        main_func += "            clock_t start = end;\n";
+        if (show)
+        {
+            main_func += "            printbuff();\n";
+        }
+        main_func += "            start = end;\n";
         main_func += "            sum = 0;\n";
         main_func += "        }\n";
         main_func += "        clean();\n";
@@ -288,6 +291,7 @@ int main(int argc, char *argv[])
     unsigned depth = 0;
     std::string path;
     std::string outputFile;
+    bool show = false;
     for (int i = 1; i < argc; i++)
     {
         std::string arg = argv[i];
@@ -303,19 +307,23 @@ int main(int argc, char *argv[])
         {
             outputFile = argv[++i];
         }
+        else if (arg == "--show")
+        {
+            show = true;
+        }
     }
 
     if (depth == 0 || path.empty() || outputFile.empty())
     {
-        std::cerr << "Usage: " << argv[0] << " -depth <number> -path <path> -o <output file>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " -depth <number> -path <path> -o <output file> [--show]" << std::endl;
         return 1;
     }
 
     std::ifstream f(path);
     json content = json::parse(f);
     Grammar gram = Grammar(content, depth);
-    gram.JIT(outputFile);
-    string compile = "clang "+ outputFile + " -O2 " + "-o io.out"; 
+    gram.JIT(outputFile, show);
+    string compile = "clang " + outputFile + " -O2 " + "-o io.out";
     system(compile.c_str());
     string runcode = "./io.out";
     system(runcode.c_str());
