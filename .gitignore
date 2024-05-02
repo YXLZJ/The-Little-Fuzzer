@@ -1,0 +1,36 @@
+# Executable files
+*.exe
+*.dll
+*.so
+*.out
+
+# c file
+*.c
+# Object files
+*.o
+*.obj
+*.a
+
+# Debug files
+*.pdb
+*.ilk
+
+# Build folders
+/build/
+/bin/
+/obj/
+
+# Dependency directories
+/deps/
+
+# Backup files
+*~
+*.bak
+
+# Other files
+*.log
+*.tmp
+.vscode/  # Exclude VS Code workspace files
+.idea/    # Exclude JetBrains IDE workspace files
+*.swp
+.DS_Store
