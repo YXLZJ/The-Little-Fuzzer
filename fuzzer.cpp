@@ -100,9 +100,9 @@ public:
      
 #define printbuff()\
     for (int i = 0; i < (buffer).top; i++) { \
-        printf("%c", (buffer).data[i]); \
+        putchar(buffer.data[i]); \
     } \
-    printf("\n")
+    putchar('\n')
     
 typedef struct {
     char data[BUFFER_SIZE];
