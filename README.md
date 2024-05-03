@@ -3,7 +3,7 @@
 |Functionality|Finish|
 |:------------:|:-----:|
 |depth control |😄|
-|shortest path searching|😄|
+|shortest path searching in advance|😄|
 
 ```
 mkdir build
@@ -14,5 +14,5 @@ make
 ```
 
 ## New Feature
-* compress graph when dealing with grammar
-* Backforward updating shortest path(from terminal to non-terminal and expression, the worst time complexity is O(N^2))
+* Compress graph when establishing grammatical rules.
+* Bottom-up update of shortest path before Fuzzing(from terminal to non-terminal and expression(rules), the worst time complexity is O(N^2))
