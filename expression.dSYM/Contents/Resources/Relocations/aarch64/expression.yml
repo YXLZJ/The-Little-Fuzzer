@@ -1,0 +1,13 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/apple/Library/Mobile Documents/com~apple~CloudDocs/ffuzzer/expression'
+relocations:
+  - { offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100002834, symSize: 0x1704 }
+  - { offset: 0x4D, size: 0x8, addend: 0x0, symName: _buffer, symObjAddr: 0x8E0C, symBinAddr: 0x10000E054, symSize: 0x0 }
+  - { offset: 0xA6, size: 0x8, addend: 0x0, symName: _seed, symObjAddr: 0x2DB8, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offset: 0xBB, size: 0x8, addend: 0x0, symName: _branch, symObjAddr: 0x20008E10, symBinAddr: 0x12000E058, symSize: 0x0 }
+  - { offset: 0xD0, size: 0x8, addend: 0x0, symName: _stack, symObjAddr: 0x2DC0, symBinAddr: 0x100008008, symSize: 0x0 }
+  - { offset: 0x166, size: 0x8, addend: 0x0, symName: _pc, symObjAddr: 0x8E08, symBinAddr: 0x10000E050, symSize: 0x0 }
+  - { offset: 0x17B, size: 0x8, addend: 0x0, symName: _program, symObjAddr: 0x6EC8, symBinAddr: 0x10000C110, symSize: 0x0 }
+  - { offset: 0x1B5, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100002834, symSize: 0x1704 }
+...

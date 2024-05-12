@@ -153,8 +153,12 @@ int main() {
     seed = rand();  // Initialize the seed
     initStack();
 )";
+        code += "    unsigned sum = 0;\n";
+        code += "    clock_t start = clock();\n";
+        code += "    unsigned int iterator = 0;\n";
         code += "    memcpy(program, (void*[]){";
-        code += "&&func_" + to_string(reinterpret_cast<uintptr_t>(this->start)) + ",&&HALT}, sizeof(void*[2]));\n"; 
+        code += "&&func_" + to_string(reinterpret_cast<uintptr_t>(this->start)) + ",&&HALT}, sizeof(void*[2]));\n";
+        code += "START:\n";
         code += R"(    NEXT();
     RET:
         pc = stack.frames[stack.top].PC;
@@ -162,7 +166,8 @@ int main() {
         pop();
         NEXT();
     HALT:
-        stack.top = 0;
+        stack.top = -1;
+        pc = 0;
         goto end;
 )";
         string blocks = "";
@@ -210,10 +215,22 @@ int main() {
         }
         code += blocks;
         code += R"(    end:
-    printbuff();  // Print buffer contents at the end
-    return 0;
+    iterator++;
+    sum += buffer.top;
+    if ((iterator&0xFFFF) == 0){
+        clock_t end = clock();
+        double duration = (double)(end-start)/CLOCKS_PER_SEC;
+        printf("Throughput Rate: %.4f MB/s\n",(double)sum/duration/1024/1024);
     )";
-        code += "}\n";
+        if(show){
+            code+="        printbuff();\n";
+        }
+        code += "        start = end;\n";
+        code += "        sum = 0;\n";
+        code += "    }\n";
+        code += "    clean();\n";
+        code += "    goto START;\n";
+        code += "}";
         std::ofstream ofs(file, std::ofstream::out | std::ofstream::trunc);
         ofs << code;
         ofs.close();
@@ -342,9 +359,9 @@ int main(int argc, char *argv[])
     json content = json::parse(f);
     Grammar gram = Grammar(content, depth);
     gram.JIT(outputFile, show);
-    // string compile = "clang " + outputFile + " -O2 " + "-o io.out";
-    // system(compile.c_str());
-    // string runcode = "./io.out";
-    // system(runcode.c_str());
+    string compile = "clang " + outputFile + " -O2 " + "-o io.out";
+    system(compile.c_str());
+    string runcode = "./io.out";
+    system(runcode.c_str());
     return 0;
 }
