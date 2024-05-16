@@ -323,9 +323,9 @@ int main(int argc, char *argv[])
     json content = json::parse(f);
     Grammar gram = Grammar(content, depth);
     gram.compile(outputFile, show);
-    string compile = "clang " + outputFile + " -O2 " + "-o compiled_io.out";
+    string compile = "clang " + outputFile + " -O2 " + "-o " + outputFile + ".out";
     system(compile.c_str());
-    string runcode = "./compiled_io.out";
-    system(runcode.c_str());
+    // string runcode = "./compiled_io.out";
+    // system(runcode.c_str());
     return 0;
 }

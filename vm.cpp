@@ -359,9 +359,9 @@ int main(int argc, char *argv[])
     json content = json::parse(f);
     Grammar gram = Grammar(content, depth);
     gram.JIT(outputFile, show);
-    string compile = "clang " + outputFile + " -O2 " + "-o vmio.out";
+    string compile = "clang " + outputFile + " -O2 " + "-o " + outputFile + ".out";
     system(compile.c_str());
-    string runcode = "./vmio.out";
-    system(runcode.c_str());
+    // string runcode = "./vmio.out";
+    // system(runcode.c_str());
     return 0;
 }
